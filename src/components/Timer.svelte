@@ -3,6 +3,7 @@
     let countSec = 0;
     let started = false;
     let interval;
+    let snd = new Audio('../../done_sound.wav')
 </script>
 
 <div class="flex flex-col sm:flex-row justify-center items-center bg-white h-full dark:bg-gray-800">
@@ -207,6 +208,7 @@
                         countSec -= 1;
                         if (countSec == 0 && count == 0) {
                             started = false;
+                            snd.play();
                             clearInterval(interval);
                         } else if (countSec == -1 && count != 0) {
                             count -= 1;
@@ -240,6 +242,8 @@
         "
             style="width: 12.5rem"
             on:click={() => {
+                snd.pause()
+                snd.currentTime = 0
                 if (started) {
                     clearInterval(interval);
                     started = false;
@@ -271,6 +275,8 @@
             style="width: 12.5rem"
             on:click={() => {
                 count = 0;
+                snd.pause()
+                snd.currentTime = 0
                 countSec = 0;
             }}
         >
