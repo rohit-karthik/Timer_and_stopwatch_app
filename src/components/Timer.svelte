@@ -66,6 +66,7 @@
                 {countSec} sec
             </p>
         </div>
+        {#if !started}
         <div class="flex w-60">
             <button
                 class="
@@ -178,6 +179,7 @@
                 -
             </button>
         </div>
+        {/if}
     </div>
     <div class="flex flex-col w-1/2 justify-center items-center">
         <button
