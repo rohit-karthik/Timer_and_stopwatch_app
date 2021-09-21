@@ -280,7 +280,7 @@
         "
                 style="width: 12.5rem"
                 on:click={() => {
-                    if ((!started && countSec != 0) || count != 0) {
+                    if ((!started && countSec != 0 && countSec < 60 && count < 60) || count != 0) {
                         started = true;
                         interval = setInterval(() => {
                             countSec -= 1;
