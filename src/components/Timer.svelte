@@ -38,7 +38,7 @@
             hover:text-white
         "
             >
-                {count} min
+                {count == null ? '0' : count} min
             </p>
             <p
                 class="flex text-blue-400 text-center text-5xl ml-2 w-6 h-20 justify-center items-center"
@@ -67,7 +67,7 @@
             hover:text-white    
         "
             >
-                {countSec} sec
+                {countSec == null ? '0' : countSec} sec
             </p>
         </div>
         {#if !started && selected == 0}
@@ -192,6 +192,7 @@
                             type="number"
                             bind:value={count}
                             min=0
+                            max=59
                             class="
                                 mt-2
                                 flex
@@ -213,6 +214,7 @@
                             type="number"
                             bind:value={countSec}
                             min=0
+                            max=59
                             class="
                                 mt-2
                                 flex
