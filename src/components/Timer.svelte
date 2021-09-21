@@ -3,10 +3,12 @@
     let countSec = 0;
     let started = false;
     let interval;
-    let snd = new Audio('../../done_sound.wav')
+    let snd = new Audio("../../done_sound.wav");
 </script>
 
-<div class="flex flex-col sm:flex-row justify-center items-center bg-white h-full dark:bg-gray-800">
+<div
+    class="flex flex-col sm:flex-row justify-center items-center bg-white h-full dark:bg-gray-800"
+>
     <div
         class="flex flex-col w-1/2 justify-center items-center bg-white dark:bg-gray-800"
     >
@@ -67,9 +69,9 @@
             </p>
         </div>
         {#if !started}
-        <div class="flex w-60">
-            <button
-                class="
+            <div class="flex w-60">
+                <button
+                    class="
             mt-2
             flex
             w-20
@@ -89,14 +91,14 @@
             hover:bg-green-400
             hover:text-white    
         "
-                on:click={() => {
-                    count += 1;
-                }}
-            >
-                +
-            </button>
-            <button
-                class="
+                    on:click={() => {
+                        count += 1;
+                    }}
+                >
+                    +
+                </button>
+                <button
+                    class="
             mt-2
             flex
             w-20
@@ -116,16 +118,16 @@
             hover:bg-green-400
             hover:text-white    
         "
-                on:click={() => {
-                    countSec += 1;
-                }}
-            >
-                +
-            </button>
-        </div>
-        <div class="flex w-60">
-            <button
-                class="
+                    on:click={() => {
+                        countSec += 1;
+                    }}
+                >
+                    +
+                </button>
+            </div>
+            <div class="flex w-60">
+                <button
+                    class="
             mt-2
             flex
             w-20
@@ -145,14 +147,14 @@
             hover:bg-red-400
             hover:text-white    
         "
-                on:click={() => {
-                    if (count != 0) count -= 1;
-                }}
-            >
-                -
-            </button>
-            <button
-                class="
+                    on:click={() => {
+                        if (count != 0) count -= 1;
+                    }}
+                >
+                    -
+                </button>
+                <button
+                    class="
             mt-2
             flex
             w-20
@@ -172,13 +174,13 @@
             hover:bg-red-400
             hover:text-white    
         "
-                on:click={() => {
-                    if (countSec != 0) countSec -= 1;
-                }}
-            >
-                -
-            </button>
-        </div>
+                    on:click={() => {
+                        if (countSec != 0) countSec -= 1;
+                    }}
+                >
+                    -
+                </button>
+            </div>
         {/if}
     </div>
     <div class="flex flex-col w-1/2 justify-center items-center">
@@ -204,7 +206,7 @@
         "
             style="width: 12.5rem"
             on:click={() => {
-                if (!started && countSec != 0 || count != 0) {
+                if ((!started && countSec != 0) || count != 0) {
                     started = true;
                     interval = setInterval(() => {
                         countSec -= 1;
@@ -244,8 +246,8 @@
         "
             style="width: 12.5rem"
             on:click={() => {
-                snd.pause()
-                snd.currentTime = 0
+                snd.pause();
+                snd.currentTime = 0;
                 if (started) {
                     clearInterval(interval);
                     started = false;
@@ -276,11 +278,12 @@
         "
             style="width: 12.5rem"
             on:click={() => {
-                count = 0;
-                started = false;
-                snd.pause()
-                snd.currentTime = 0
-                countSec = 0;
+                if (!started) {
+                    count = 0;
+                    snd.pause();
+                    snd.currentTime = 0;
+                    countSec = 0;
+                }
             }}
         >
             Reset
