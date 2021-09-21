@@ -1,8 +1,10 @@
 <script>
     let count = 0;
     let countSec = 0;
+
     let started = false;
     let interval;
+    let selected = 0;
     let snd = new Audio("../../done_sound.wav");
 </script>
 
@@ -68,7 +70,7 @@
                 {countSec} sec
             </p>
         </div>
-        {#if !started}
+        {#if !started && selected == 0}
             <div class="flex w-60">
                 <button
                     class="
@@ -145,7 +147,7 @@
             transition
             hover:border-none
             hover:bg-red-400
-            hover:text-white    
+            hover:text-white
         "
                     on:click={() => {
                         if (count != 0) count -= 1;
@@ -167,6 +169,7 @@
             border-2
             rounded-lg
             items-center
+            bg-transparent
             justify-center
             text-3xl
             transition
@@ -181,11 +184,80 @@
                     -
                 </button>
             </div>
+        {:else if !started && selected == 1}
+            <div class="flex w-60">
+                <div class="flex flex-col justify-center items-center">
+                    <div class="flex">
+                        <input
+                            type="number"
+                            bind:value={count}
+                            min=0
+                            class="
+                                mt-2
+                                flex
+                                w-20
+                                text-center
+                                ml-6
+                                mb-6
+                                h-20
+                                rounded-lg
+                                items-center
+                                justify-center
+                                text-3xl
+                                transition
+                                border-none
+                                bg-blue-400
+                                text-white "
+                        />
+                        <input
+                            type="number"
+                            bind:value={countSec}
+                            min=0
+                            class="
+                                mt-2
+                                flex
+                                w-20
+                                text-center
+                                ml-10
+                                mb-6
+                                h-20
+                                rounded-lg
+                                items-center
+                                justify-center
+                                text-3xl
+                                transition
+                                border-none
+                                bg-blue-400
+                                text-white "
+                        />
+                    </div>
+                </div> 
+            </div>
         {/if}
     </div>
     <div class="flex flex-col w-1/2 justify-center items-center">
-        <button
-            class="
+        <div class="flex justify-center items-center">
+            <button
+                on:click={() => {
+                    selected = 0;
+                }}
+                class="{selected == 0
+                    ? 'bg-blue-400 text-white'
+                    : 'text-blue-400'} border-blue-400 border-2 p-1 rounded-lg m-2 transition"
+                >Buttons</button
+            >
+            <button
+                on:click={() => {
+                    selected = 1;
+                }}
+                class="{selected == 1
+                    ? 'bg-blue-400 text-white'
+                    : 'text-blue-400'} border-blue-400 border-2 p-1 rounded-lg m-2 transition"
+                >{"Input"}</button
+            >
+        </div>
+            <button
+                class="
             mt-2
             flex
             text-center
@@ -204,28 +276,28 @@
             hover:bg-blue-400
             hover:text-white
         "
-            style="width: 12.5rem"
-            on:click={() => {
-                if ((!started && countSec != 0) || count != 0) {
-                    started = true;
-                    interval = setInterval(() => {
-                        countSec -= 1;
-                        if (countSec == 0 && count == 0) {
-                            started = false;
-                            snd.play();
-                            clearInterval(interval);
-                        } else if (countSec == -1 && count != 0) {
-                            count -= 1;
-                            countSec = 59;
-                        }
-                    }, 1000);
-                }
-            }}
-        >
-            Start
-        </button>
-        <button
-            class="
+                style="width: 12.5rem"
+                on:click={() => {
+                    if ((!started && countSec != 0) || count != 0) {
+                        started = true;
+                        interval = setInterval(() => {
+                            countSec -= 1;
+                            if (countSec == 0 && count == 0) {
+                                started = false;
+                                snd.play();
+                                clearInterval(interval);
+                            } else if (countSec == -1 && count != 0) {
+                                count -= 1;
+                                countSec = 59;
+                            }
+                        }, 1000);
+                    }
+                }}
+            >
+                Start
+            </button>
+            <button
+                class="
             mt-2
             flex
             text-center
@@ -244,20 +316,20 @@
             hover:bg-red-400
             hover:text-white
         "
-            style="width: 12.5rem"
-            on:click={() => {
-                snd.pause();
-                snd.currentTime = 0;
-                if (started) {
-                    clearInterval(interval);
-                    started = false;
-                }
-            }}
-        >
-            Stop
-        </button>
-        <button
-            class="
+                style="width: 12.5rem"
+                on:click={() => {
+                    snd.pause();
+                    snd.currentTime = 0;
+                    if (started) {
+                        clearInterval(interval);
+                        started = false;
+                    }
+                }}
+            >
+                Stop
+            </button>
+            <button
+                class="
             mt-2
             flex
             text-center
@@ -276,17 +348,17 @@
             hover:bg-red-600
             hover:text-white
         "
-            style="width: 12.5rem"
-            on:click={() => {
-                if (!started) {
-                    count = 0;
-                    snd.pause();
-                    snd.currentTime = 0;
-                    countSec = 0;
-                }
-            }}
-        >
-            Reset
-        </button>
+                style="width: 12.5rem"
+                on:click={() => {
+                    if (!started) {
+                        count = 0;
+                        snd.pause();
+                        snd.currentTime = 0;
+                        countSec = 0;
+                    }
+                }}
+            >
+                Reset
+            </button>
     </div>
 </div>
