@@ -277,6 +277,7 @@
             style="width: 12.5rem"
             on:click={() => {
                 count = 0;
+                started = false;
                 snd.pause()
                 snd.currentTime = 0
                 countSec = 0;
