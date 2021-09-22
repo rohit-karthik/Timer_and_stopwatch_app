@@ -6,6 +6,8 @@
     let interval;
     let selected = 0;
     let snd = new Audio("../../done_sound.wav");
+
+    let shown = false;
 </script>
 
 <div
@@ -38,7 +40,7 @@
             hover:text-white
         "
             >
-                {count == null ? '0' : count} min
+                {count == null ? "0" : count} min
             </p>
             <p
                 class="flex text-blue-400 text-center text-5xl ml-2 w-6 h-20 justify-center items-center"
@@ -67,7 +69,7 @@
             hover:text-white    
         "
             >
-                {countSec == null ? '0' : countSec} sec
+                {countSec == null ? "0" : countSec} sec
             </p>
         </div>
         {#if !started && selected == 0}
@@ -191,8 +193,8 @@
                         <input
                             type="number"
                             bind:value={count}
-                            min=0
-                            max=59
+                            min="0"
+                            max="59"
                             class="
                                 mt-2
                                 flex
@@ -213,8 +215,8 @@
                         <input
                             type="number"
                             bind:value={countSec}
-                            min=0
-                            max=59
+                            min="0"
+                            max="59"
                             class="
                                 mt-2
                                 flex
@@ -233,7 +235,10 @@
                                 text-white "
                         />
                     </div>
-                </div> 
+                    {#if shown}
+                        <p class="text-red-600 text-2xl mb-6">Invalid input!</p>
+                    {/if}
+                </div>
             </div>
         {/if}
     </div>
@@ -258,8 +263,8 @@
                 >{"Input"}</button
             >
         </div>
-            <button
-                class="
+        <button
+            class="
             mt-2
             flex
             text-center
@@ -278,28 +283,31 @@
             hover:bg-blue-400
             hover:text-white
         "
-                style="width: 12.5rem"
-                on:click={() => {
-                    if ((!started && countSec != 0 && countSec < 60) || count != 0) {
-                        started = true;
-                        interval = setInterval(() => {
-                            countSec -= 1;
-                            if (countSec == 0 && count == 0) {
-                                started = false;
-                                snd.play();
-                                clearInterval(interval);
-                            } else if (countSec == -1 && count != 0) {
-                                count -= 1;
-                                countSec = 59;
-                            }
-                        }, 1000);
-                    }
-                }}
-            >
-                Start
-            </button>
-            <button
-                class="
+            style="width: 12.5rem"
+            on:click={() => {
+                if ((!started && countSec > 0 && countSec < 60) || count != 0) {
+                    started = true;
+                    shown = false;
+                    interval = setInterval(() => {
+                        countSec -= 1;
+                        if (countSec == 0 && count == 0) {
+                            started = false;
+                            snd.play();
+                            clearInterval(interval);
+                        } else if (countSec == -1 && count != 0) {
+                            count -= 1;
+                            countSec = 59;
+                        }
+                    }, 1000);
+                } else {
+                    shown = true;
+                }
+            }}
+        >
+            Start
+        </button>
+        <button
+            class="
             mt-2
             flex
             text-center
@@ -318,20 +326,20 @@
             hover:bg-red-400
             hover:text-white
         "
-                style="width: 12.5rem"
-                on:click={() => {
-                    snd.pause();
-                    snd.currentTime = 0;
-                    if (started) {
-                        clearInterval(interval);
-                        started = false;
-                    }
-                }}
-            >
-                Stop
-            </button>
-            <button
-                class="
+            style="width: 12.5rem"
+            on:click={() => {
+                snd.pause();
+                snd.currentTime = 0;
+                if (started) {
+                    clearInterval(interval);
+                    started = false;
+                }
+            }}
+        >
+            Stop
+        </button>
+        <button
+            class="
             mt-2
             flex
             text-center
@@ -350,17 +358,17 @@
             hover:bg-red-600
             hover:text-white
         "
-                style="width: 12.5rem"
-                on:click={() => {
-                    if (!started) {
-                        count = 0;
-                        snd.pause();
-                        snd.currentTime = 0;
-                        countSec = 0;
-                    }
-                }}
-            >
-                Reset
-            </button>
+            style="width: 12.5rem"
+            on:click={() => {
+                if (!started) {
+                    count = 0;
+                    snd.pause();
+                    snd.currentTime = 0;
+                    countSec = 0;
+                }
+            }}
+        >
+            Reset
+        </button>
     </div>
 </div>
