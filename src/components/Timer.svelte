@@ -5,7 +5,15 @@
     let started = false;
     let interval;
     let selected = 0;
+
     let snd = new Audio("../../done_sound.wav");
+
+    //const { Notification } = require("electron")
+
+    /*const myNotif = new Notification({
+        title: 'Notif',
+        body: 'Notif body'
+    })*/
 
     let shown = false;
 </script>
@@ -284,15 +292,17 @@
             hover:text-white
         "
             style="width: 12.5rem"
+            id="startButton"
             on:click={() => {
-                if ((!started && countSec > 0 && countSec < 60) || count != 0) {
+                if ((!started && (countSec > 0 && countSec < 60) || count > 0)) {
                     started = true;
                     shown = false;
                     interval = setInterval(() => {
                         countSec -= 1;
                         if (countSec == 0 && count == 0) {
                             started = false;
-                            snd.play();
+                            //snd.play();
+                            new Notification("Your timer is over!")
                             clearInterval(interval);
                         } else if (countSec == -1 && count != 0) {
                             count -= 1;

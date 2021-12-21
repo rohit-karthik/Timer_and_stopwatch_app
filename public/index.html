@@ -7,9 +7,9 @@
 
 	<title>Timer and Stopwatch App</title>
 
-	<link rel='icon' type='image/png' href='/favicon.png'>
-	<link rel='stylesheet' href='/tailwind.css'>
-
+	<link rel='icon' type='image/png' href='favicon.png'>
+	<link rel='stylesheet' href='tailwind.css'>
+	
 	<script>
 		// On page load or when changing themes, best to add inline in `head` to avoid FOUC
 		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -27,7 +27,7 @@
 		// Whenever the user explicitly chooses to respect the OS preference
 		localStorage.removeItem('theme')
 	</script>
-	<script defer src='/build/bundle.js'></script>
+	<script defer src='build/bundle.js'></script>
 </head>
 
 <body>
