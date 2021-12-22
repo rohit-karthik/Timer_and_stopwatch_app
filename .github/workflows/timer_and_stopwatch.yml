@@ -17,8 +17,8 @@ jobs:
         npm install
         git commit -a -m "add packages"
     - run: npm version patch
-    - run: npx electron-builder --win
-    - run: npx electron-builder --mac
+    - run: npx electron-builder --win --publish=never
+    - run: npx electron-builder --mac --publish=never
     - run: |
         echo "APP_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
         gh release create $APP_VERSION dist/*.dmg dist/*.exe --title "$APP_VERSION released" --notes "New release available."
