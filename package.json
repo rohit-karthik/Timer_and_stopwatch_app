@@ -1,6 +1,6 @@
 {
   "name": "svelte-app",
-  "version": "2.1.16",
+  "version": "3.0.0",
   "private": true,
   "build": {
     "productName": "Timer and Stopwatch"
