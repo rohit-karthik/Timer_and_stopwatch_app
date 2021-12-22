@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "build": {
-    "productName": "Timer and Stopwatch"
+    "productName": "Timer and Stopwatch",
+    "artifactName": "Timer-and-Stopwatch-${os}-${arch}.${ext}"
   },
   "scripts": {
     "build": "rollup -c",
