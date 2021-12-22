@@ -13,7 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: npm install
+    - run: |
+        npm install
+        git commit -a -m "add packages"
     - run: npm version patch
     - run: npx electron-builder --win
     - run: npx electron-builder --mac
