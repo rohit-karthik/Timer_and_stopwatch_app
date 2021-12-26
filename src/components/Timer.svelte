@@ -1,4 +1,5 @@
 <script>
+
     let count = 0;
     let countSec = 0;
 
@@ -6,7 +7,7 @@
     let interval;
     let selected = 0;
 
-    let snd = new Audio("../../done_sound.wav");
+    //let snd = new Audio("../../done_sound.wav");
 
     //const { Notification } = require("electron")
 
@@ -338,8 +339,8 @@
         "
             style="width: 12.5rem"
             on:click={() => {
-                snd.pause();
-                snd.currentTime = 0;
+                //snd.pause();
+                //snd.currentTime = 0;
                 if (started) {
                     clearInterval(interval);
                     started = false;
@@ -372,8 +373,8 @@
             on:click={() => {
                 if (!started) {
                     count = 0;
-                    snd.pause();
-                    snd.currentTime = 0;
+                    //snd.pause();
+                    //snd.currentTime = 0;
                     countSec = 0;
                 }
             }}
